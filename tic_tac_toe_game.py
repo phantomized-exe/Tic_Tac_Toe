@@ -68,20 +68,24 @@ def main():
             print("Space already filled")
             main()
     if board[0] == ["X","X","X"] or board[1] == ["X","X","X"] or board[2] == ["X","X","X"]:
-        print()
-        return x_win
+        print(x_win)
+        filled = 9
+        return
     elif board[0][0] == "X" and board[1][0] == "X" and board[2][0] == "X":
-        print()
-        return x_win
+        print(x_win)
+        filled = 9
+        return
     elif board[0][1] == "X" and board[1][1] == "X" and board[2][1] == "X":
-        print()
-        return x_win
+        print(x_win)
+        filled = 9
+        return
     elif board[0][2] == "X" and board[1][2] == "X" and board[2][2] == "X":
-        print()
-        return x_win
+        print(x_win)
+        filled = 9
+        return
     if filled >= 9:
-        print()
-        return tie
+        print(tie)
+        return
     for i in range(3):
         for j in range(3):
             print(board[i][j],end=" ")
@@ -129,20 +133,24 @@ def main():
                 print("Space already filled")
                 continue
         if board[0] == ["Y","Y","Y"] or board[1] == ["Y","Y","Y"] or board[2] == ["Y","Y","Y"]:
-            print()
-            return y_win
+            print(y_win)
+            filled = 9
+            return
         elif board[0][0] == "Y" and board[1][0] == "Y" and board[2][0] == "Y":
-            print()
-            return y_win
+            print(y_win)
+            filled = 9
+            return
         elif board[0][1] == "Y" and board[1][1] == "Y" and board[2][1] == "Y":
-            print()
-            return y_win
+            print(y_win)
+            filled = 9
+            return
         elif board[0][2] == "Y" and board[1][2] == "Y" and board[2][2] == "Y":
-            print()
-            return y_win
+            print(y_win)
+            filled = 9
+            return
         if filled >= 9:
-            print()
-            return tie
+            print(tie)
+            return
         else:
             main()
-print(main())
+main()
