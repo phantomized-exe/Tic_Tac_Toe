@@ -3,6 +3,14 @@ board = [
     ["4","5","6"],
     ["7","8","9"]
 ]
+def board_status():
+    global board
+    print()
+    for i in range(3):
+        for j in range(3):
+            print(board[i][j],end=" ")
+        print()
+    print()
 def player_choice():
     global player
     global player_input
@@ -28,12 +36,7 @@ def main():
     global filled
     global player
     global player_input
-    print()
-    for i in range(3):
-        for j in range(3):
-            print(board[i][j],end=" ")
-        print()
-    print()
+    board_status()
     player_choice()
     if 1 <= player_input <= 3:
         if board[0][0] in str(player_input):
@@ -75,72 +78,37 @@ def main():
             print("Space already filled")
             main()
     if board[0] == [player,player,player] or board[1] == [player,player,player] or board[2] == [player,player,player]:
-        print()
-        for i in range(3):
-            for j in range(3):
-                print(board[i][j],end=" ")
-            print()
-        print()
+        board_status()
         print(f"{player} wins!")
         filled = 9
         return
     elif board[0][0] == player and board[1][0] == player and board[2][0] == player:
-        print()
-        for i in range(3):
-            for j in range(3):
-                print(board[i][j],end=" ")
-            print()
-        print()
+        board_status()
         print(f"{player} wins!")
         filled = 9
         return
     elif board[0][1] == player and board[1][1] == player and board[2][1] == player:
-        print()
-        for i in range(3):
-            for j in range(3):
-                print(board[i][j],end=" ")
-            print()
-        print()
+        board_status()
         print(f"{player} wins!")
         filled = 9
         return
     elif board[0][2] == player and board[1][2] == player and board[2][2] == player:
-        print()
-        for i in range(3):
-            for j in range(3):
-                print(board[i][j],end=" ")
-            print()
-        print()
+        board_status()
         print(f"{player} wins!")
         filled = 9
         return
     elif board[0][0] == player and board[1][1] == player and board[2][2] == player:
-        print()
-        for i in range(3):
-            for j in range(3):
-                print(board[i][j],end=" ")
-            print()
-        print()
+        board_status()
         print(f"{player} wins!")
         filled = 9
         return
     elif board[0][2] == player and board[1][1] == player and board[2][0] == player:
-        print()
-        for i in range(3):
-            for j in range(3):
-                print(board[i][j],end=" ")
-            print()
-        print()
+        board_status()
         print(f"{player} wins!")
         filled = 9
         return
     if filled >= 9:
-        print()
-        for i in range(3):
-            for j in range(3):
-                print(board[i][j],end=" ")
-            print()
-        print()
+        board_status()
         print("Tie!")
         return
     else:
