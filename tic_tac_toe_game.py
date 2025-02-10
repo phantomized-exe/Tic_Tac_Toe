@@ -258,7 +258,7 @@ def main():
         else:
             main()
 main()
-play_again == "y"
+play_again = "y"
 while play_again == "y":
     play_again = input("Play again? (y/n) ")
     if play_again == "y":
