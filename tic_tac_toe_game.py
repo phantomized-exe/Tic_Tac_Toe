@@ -146,3 +146,19 @@ def main():
     else:
         main()
 main()
+play_again = "y"
+while play_again == "y":
+    print()
+    play_again = input("Play again? (y/n) ")
+    if play_again == "y":
+        filled = 0
+        board = [
+            ["1","2","3"],
+            ["4","5","6"],
+            ["7","8","9"]
+        ]
+        main()
+        continue
+    else:
+        play_again = "n"
+        break
