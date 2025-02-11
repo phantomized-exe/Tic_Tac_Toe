@@ -1,23 +1,37 @@
 board = [
-    ["1","2","3"],
-    ["4","5","6"],
-    ["7","8","9"]
+    ["01","02","03"],
+    ["04","05","06"],
+    ["07","08","09"],
+    ["10","11","12"],
+    ["13","14","15"]
 ]
 def board_status():
     global board
+    global row
+    global column
+    line = "="
+    line_num = 0
+    row = 3
+    column = 5
     print()
-    for i in range(3):
-        for j in range(3):
-            print(board[i][j],end="")
+    for i in range(column):
+        for j in range(row):
+            print(" ",end="")
+            print(board[i][j],end=" ")
+            line_num += 4
             if j != 2:
-                print(" | ",end="")
+                print("|",end="")
+                line_num += 1
         print()
-        if i != 2:
-            print("=========")
+        if i != column-1:
+            print(line*line_num)
+            line_num = 0
     print()
 def player_choice():
     global player
     global player_input
+    global row
+    global column
     while True:
         try:
             player = input("X or O? ")
@@ -26,7 +40,7 @@ def player_choice():
                 print("Invalid input")
                 continue
             player_input = int(input("What number spot? "))
-            if player_input < 0 or player_input > 9:
+            if player_input < 0 or player_input > row*column:
                 print("Invalid input")
                 continue
             else:
@@ -43,13 +57,13 @@ def main():
     board_status()
     player_choice()
     if 1 <= player_input <= 3:
-        if board[0][0] in str(player_input):
+        if str(player_input) in board[0][0]:
             board[0][0] = player
             filled += 1
-        elif board[0][1] in str(player_input):
+        elif str(player_input) in board[0][1]:
             board[0][1] = player
             filled += 1
-        elif board[0][2] in str(player_input):
+        elif str(player_input) in board[0][2]:
             board[0][2] = player
             filled += 1
         else:
