@@ -9,10 +9,12 @@ def board_status():
     global board
     global row
     global column
+    global filled_max
     line = "="
     line_num = 0
     row = 3
     column = 3
+    filled_max = row*column
     print()
     for i in range(column):
         for j in range(row):
@@ -52,6 +54,7 @@ filled = 0
 def main():
     global board
     global filled
+    global filled_max
     global player
     global player_input
     board_status()
@@ -125,7 +128,7 @@ def main():
         print(f"{player} wins!")
         filled = 9
         return
-    if filled >= 9:
+    if filled >= filled_max:
         board_status()
         print("Tie!")
         return
@@ -139,9 +142,9 @@ while play_again == "y":
     if play_again == "y":
         filled = 0
         board = [
-            ["1","2","3"],
-            ["4","5","6"],
-            ["7","8","9"]
+            ["01","02","03"],
+            ["04","05","06"],
+            ["07","08","09"]
         ]
         main()
         continue
