@@ -12,7 +12,7 @@ def board_status():
     line = "="
     line_num = 0
     row = 3
-    column = 5
+    column = 3
     print()
     for i in range(column):
         for j in range(row):
@@ -70,26 +70,26 @@ def main():
             print("Space already filled")
             main()
     elif 4 <= player_input <= 6:
-        if board[1][0] in str(player_input):
+        if str(player_input) in board[1][0]:
             board[1][0] = player
             filled += 1
-        elif board[1][1] in str(player_input):
+        elif str(player_input) in board[1][1]:
             board[1][1] = player
             filled += 1
-        elif board[1][2] in str(player_input):
+        elif str(player_input) in board[1][2]:
             board[1][2] = player
             filled += 1
         else:
             print("Space already filled")
             main()
-    if 7 <= player_input <= 9:
-        if board[2][0] in str(player_input):
+    elif 7 <= player_input <= 9:
+        if str(player_input) in board[2][0]:
             board[2][0] = player
             filled += 1
-        elif board[2][1] in str(player_input):
+        elif str(player_input) in board[2][1]:
             board[2][1] = player
             filled += 1
-        elif board[2][2] in str(player_input):
+        elif str(player_input) in board[2][2]:
             board[2][2] = player
             filled += 1
         else:
