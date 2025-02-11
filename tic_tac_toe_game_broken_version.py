@@ -1,10 +1,42 @@
 board = [
-    ["01","02","03"],
-    ["04","05","06"],
-    ["07","08","09"],
-    ["10","11","12"],
-    ["13","14","15"]
+    ["01","02","03","TEST","TEST"],
+    ["04","05","06","TEST","TEST"],
+    ["07","08","09","TEST","TEST"],
+    ["TEST","TEST","TEST","TEST","TEST"],
+    ["TEST","TEST","TEST","TEST","TEST"]
 ]
+while True:
+    try:
+        row = int(input("What row size? "))
+        column = int(input("What column size? "))
+    except ValueError:
+        print("Invalid input")
+        continue
+    else:
+        break
+def build_board(row,column):
+    multi_board = []
+    board_num = 0
+    for i in range(column):
+        for j in range(row):
+            board_num += 1
+            multi_board.append(str(format(board_num,"02d")))
+    line = "="
+    line_num = 0
+    print()
+    for i in range(column):
+        for j in range(row):
+            print(" ",end="")
+            print(multi_board[i+j],end=" ")
+            line_num += 4
+            if j != row-1:
+                print("|",end="")
+                line_num += 1
+        print()
+        if i != column-1:
+            print(line*line_num)
+            line_num = 0
+    print()
 def board_status():
     global board
     global row
@@ -12,8 +44,6 @@ def board_status():
     global filled_max
     line = "="
     line_num = 0
-    row = 3
-    column = 3
     filled_max = row*column
     print()
     for i in range(column):
@@ -57,7 +87,10 @@ def main():
     global filled_max
     global player
     global player_input
-    board_status()
+    global row
+    global column
+    filled_max = row*column
+    build_board(row,column)
     player_choice()
     if 1 <= player_input <= 3:
         if str(player_input) in board[0][0]:
