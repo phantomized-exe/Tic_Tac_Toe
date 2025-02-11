@@ -8,8 +8,12 @@ def board_status():
     print()
     for i in range(3):
         for j in range(3):
-            print(board[i][j],end=" ")
+            print(board[i][j],end="")
+            if j != 2:
+                print(" | ",end="")
         print()
+        if i != 2:
+            print("=========")
     print()
 def player_choice():
     global player
