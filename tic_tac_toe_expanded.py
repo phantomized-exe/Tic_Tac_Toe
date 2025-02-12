@@ -87,7 +87,25 @@ def main():
     else:
         print("Space already filled")
         main()
-    build_board(row,column)
+    formatted_list = []
+    formatted_row_min = 0
+    formatted_row_max = row
+    for i in range(column):
+        formatted_list.append(multi_board[formatted_row_min:formatted_row_max])
+        formatted_row_min = formatted_row_max
+        formatted_row_max += row
+    for i in range(column):
+        if filled_max > 9:
+            if formatted_list[i].count(player) == row:
+                print()
+                print(f"{player} wins!")
+                return
+        else:
+            if formatted_list[i].count(" " + player) == row:
+                print()
+                print(f"{player} wins!")
+                return
+        print(formatted_list[i].count(" " + player))
     if filled >= filled_max:
         build_board()
         print("Tie!")
