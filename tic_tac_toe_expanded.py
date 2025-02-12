@@ -18,7 +18,7 @@ def board_choice():
         for j in range(row):
             board_num += 1
             if list_value < 10:
-                multi_board.append(str(board_num))#format(board_num,"02d")))
+                multi_board.append(str(board_num))
             else:
                 multi_board.append(str(format(board_num,"02d")))
     
@@ -51,21 +51,22 @@ def player_choice():
     global player_input
     global row
     global column
-    try:
-        player = input("X or O? ")
-        player = player.upper()
-        if player != "X" and player != "O":
+    while True:
+        try:
+            player = input("X or O? ")
+            player = player.upper()
+            if player != "X" and player != "O":
+                print("Invalid input")
+                continue
+            player_input = int(input("What number spot? "))
+            if player_input < 0 or player_input > row*column:
+                print("Invalid input")
+                continue
+            else:
+                return player_input
+        except ValueError:
             print("Invalid input")
-            player_choice()
-        player_input = int(input("What number spot? "))
-        if player_input < 0 or player_input > row*column:
-            print("Invalid input")
-            player_choice()
-        else:
-            return player_input
-    except ValueError:
-        print("Invalid input")
-        player_choice()
+            continue
 filled = 0
 board_choice()
 def main():
@@ -99,19 +100,22 @@ def main():
         formatted_list.append(multi_board[formatted_row_min:formatted_row_max])
         formatted_row_min = formatted_row_max
         formatted_row_max += row
-    for i in range(column): !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! fix this!!!!!!!!!!!!!!!!!!!!!!!!!
-        if filled_max > 9:
-            print(formatted_list[i].count(player))
+    for i in range(column):
+        if filled_max < 10:
             if formatted_list[i-1].count(player) == row:
-                print()
+                build_board(row,column)
                 print(f"{player} wins!")
-                return
+                quit()
+            #if formatted_list[i-1] == player*row:
+                #build_board(row,column)
+                #print(f"{player} wins! test 3")
+                #return
         else:
             print(formatted_list[i].count(" " + player))
             if formatted_list[i-1].count(" " + player) == row:
-                print()
+                build_board(row,column)
                 print(f"{player} wins!")
-                return
+                quit()
     if filled >= filled_max:
         build_board()
         print("Tie!")
