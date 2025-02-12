@@ -102,7 +102,7 @@ def main():
         formatted_row_max += row
     for i in range(column):
         if filled_max < 10:
-            if formatted_list[i-1].count(player) == row:
+            if formatted_list[i-1].count(player) >= 3:#== row
                 build_board(row,column)
                 print(f"{player} wins!")
                 quit()
@@ -112,7 +112,7 @@ def main():
                 #return
         else:
             print(formatted_list[i].count(" " + player))
-            if formatted_list[i-1].count(" " + player) == row:
+            if formatted_list[i-1].count(" " + player) >= 3:
                 build_board(row,column)
                 print(f"{player} wins!")
                 quit()
