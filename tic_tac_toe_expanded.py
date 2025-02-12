@@ -140,11 +140,11 @@ def main():
             print(f"{player} wins!")
             return
     win_diag = 0
-    num_diag = 0
     for i in range(row):
+        num_diag = i
         for j in range(column):
             if filled_max < 10:
-                if formatted_list[j][num_diag] == player:
+                if formatted_list[j][num_diag+i] == player:
                     print(num_diag)
                     win_diag += 1
                     num_diag += 1
@@ -176,6 +176,7 @@ while play_again == "y":
     play_again = input("Play again? (y/n) ")
     if play_again == "y":
         filled = 0
+        board_choice()
         main()
         continue
     else:
