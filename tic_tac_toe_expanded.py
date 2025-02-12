@@ -86,25 +86,27 @@ def main():
     global column
     build_board(row,column)
     filled_max = row*column
-    if filled_max < 10:
-        if str(player_choice()) in str(multi_board):
-            position = multi_board.index(str(player_input))
-            multi_board[position] = player
-            filled += 1
-        else:
-            print()
-            print("Space already filled")
-            main()
-    elif filled_max > 9:
-        if str(format(player_choice(),"02d")) in str(multi_board):
-            position = multi_board.index(str(format(player_input,"02d")))
-            multi_board[position] = " "
-            multi_board[position] += player
-            filled += 1
-        else:
-            print()
-            print("Space already filled")
-            main()
+    while True:
+        if filled_max < 10:
+            if str(player_choice()) in str(multi_board):
+                position = multi_board.index(str(player_input))
+                multi_board[position] = player
+                filled += 1
+                break
+            else:
+                print("Space already filled")
+                continue
+        elif filled_max > 9:
+            if str(format(player_choice(),"02d")) in str(multi_board):
+                position = multi_board.index(str(format(player_input,"02d")))
+                multi_board[position] = " "
+                multi_board[position] += player
+                filled += 1
+                break
+            else:
+                print()
+                print("Space already filled")
+                continue
     formatted_list = []
     formatted_row_min = 0
     formatted_row_max = row
@@ -173,5 +175,6 @@ while play_again == "y":
         continue
     else:
         play_again = "n"
+        print()
         print("Made by Phann Boon and George Koniaris")
         quit()
