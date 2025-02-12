@@ -127,49 +127,34 @@ def main():
                 build_board(row,column)
                 print(f"{player} wins!")
                 return
-    win_down = 0
-    for i in range(row):
-        for j in range(column):
-            if filled_max < 10:
-                if formatted_list[j][i] == player:
-                    win_down += 1
-                    continue
-                else:
-                    break
-            else:
-                if formatted_list[j][i] == " " + player:
-                    win_down += 1
-                    continue
-                else:
-                    break
-        if win_down >= 3:
-            build_board(row,column)
-            print(f"{player} wins!")
-            return
-    win_diag = 0
-    for i in range(row):
-        num_diag = i
-        for j in range(column):
-            if filled_max < 10:
-                if formatted_list[j][num_diag+i] == player:
-                    print(num_diag)
-                    win_diag += 1
-                    num_diag += 1
-                    continue
-                else:
-                    break
-            else:
-                if formatted_list[j][num_diag] == " " + player:
-                    print(num_diag)
-                    win_diag += 1
-                    num_diag += 1
-                    continue
-                else:
-                    break
-        if win_diag >= 3:
-            build_board(row,column)
-            print(f"{player} wins!")
-            return
+    for i in range(column):
+        for j in range(row):
+            try:
+                if formatted_list[i][j] == player or formatted_list[i][j] == " " + player:
+                    if formatted_list[i][j+1] == player or formatted_list[i][j+1] == " " + player:
+                        if formatted_list[i][j+2] == player or formatted_list[i][j+2] == " " + player:
+                            build_board(row,column)
+                            print(f"{player} wins!")
+                            return
+            except IndexError:
+                pass
+    for i in range(column):
+        for j in range(row):
+            try:
+                if formatted_list[i][j] == player or formatted_list[i][j] == " " + player:
+                    if formatted_list[i+1][j+1] == player or formatted_list[i+1][j+1] == " " + player:
+                        if formatted_list[i+2][j+2] == player or formatted_list[i+2][j+2] == " " + player:
+                            build_board(row,column)
+                            print(f"{player} wins!")
+                            return
+                if formatted_list[-i-1][j] == player or formatted_list[-i-1][j] == " " + player:
+                    if formatted_list[-i-2][j+1] == player or formatted_list[-i-2][j+1] == " " + player:
+                        if formatted_list[-i-3][j+2] == player or formatted_list[-i-3][j+2] == " " + player:
+                            build_board(row,column)
+                            print(f"{player} wins!")
+                            return
+            except IndexError:
+                pass
     if filled >= filled_max:
         build_board()
         print("Tie!")
@@ -188,4 +173,5 @@ while play_again == "y":
         continue
     else:
         play_again = "n"
+        print("Made by Phann Boon and George Koniaris")
         quit()
