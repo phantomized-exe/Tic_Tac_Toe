@@ -1,3 +1,4 @@
+import time
 def board_choice():
     global row
     global column
@@ -60,16 +61,21 @@ def player_choice():
     global column
     while True:
         try:
-            player = input("X or O? ")
+            import random
+            player = random.randint(1,2)#input("X or O? ")
             if player == 1:
                 player = "X"
             else:
                 player = "O"
+            print(player)
+            time.sleep(3)
             player = player.upper()
             if player != "X" and player != "O":
                 print("Invalid input")
                 continue
-            player_input = int(input("What number spot? "))
+            player_input = random.randint(1,row*column)#int(input("What number spot? "))
+            print(player_input)
+            time.sleep(3)
             if player_input < 0 or player_input > row*column:
                 print("Invalid input")
                 continue
