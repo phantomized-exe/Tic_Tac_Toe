@@ -61,10 +61,6 @@ def player_choice():
     while True:
         try:
             player = input("X or O? ")
-            if player == 1:
-                player = "X"
-            else:
-                player = "O"
             player = player.upper()
             if player != "X" and player != "O":
                 print("Invalid input")
