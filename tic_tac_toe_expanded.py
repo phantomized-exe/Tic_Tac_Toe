@@ -28,6 +28,7 @@ def build_board(row,column):
     line_num = 0
     list_num = 0
     list_value = row*column
+    line_break = 0
     print()
     for i in range(column):
         for j in range(row):
@@ -40,11 +41,17 @@ def build_board(row,column):
                 line_num += 4
             if j != row-1:
                 print("|",end="")
-                line_num += 1
+                line_break += 1
         print()
         if i != column-1:
-            print(line*line_num)
+            for k in range(row):
+                for l in range(int(line_num/row)):
+                    print(line,end="")
+                if k != row-1:
+                    print("|",end="")
+            print()
             line_num = 0
+            line_break = 0
     print()
 def player_choice():
     global player
