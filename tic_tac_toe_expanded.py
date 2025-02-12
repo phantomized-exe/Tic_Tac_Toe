@@ -74,43 +74,20 @@ def main():
     filled_max = row*column
     build_board(row,column)
     if str(player_choice()) in str(multi_board):
-        position = multi_board.index(str(format(player_input,"02d")))
-        multi_board[position] = " " + player
+        if filled_max > 9:
+            position = multi_board.index(str(format(player_input,"02d")))
+        else:
+            position = multi_board.index(str(player_input))
+        if filled_max > 9:
+            multi_board[position] = " "
+        else:
+            multi_board[position] = ""
+        multi_board[position] += player
         filled += 1
     else:
         print("Space already filled")
         main()
     build_board(row,column)
-    if board[0] == [player,player,player] or board[1] == [player,player,player] or board[2] == [player,player,player]:
-        board_status()
-        print(f"{player} wins!")
-        filled = 9
-        return
-    elif board[0][0] == player and board[1][0] == player and board[2][0] == player:
-        board_status()
-        print(f"{player} wins!")
-        filled = 9
-        return
-    elif board[0][1] == player and board[1][1] == player and board[2][1] == player:
-        board_status()
-        print(f"{player} wins!")
-        filled = 9
-        return
-    elif board[0][2] == player and board[1][2] == player and board[2][2] == player:
-        board_status()
-        print(f"{player} wins!")
-        filled = 9
-        return
-    elif board[0][0] == player and board[1][1] == player and board[2][2] == player:
-        board_status()
-        print(f"{player} wins!")
-        filled = 9
-        return
-    elif board[0][2] == player and board[1][1] == player and board[2][0] == player:
-        board_status()
-        print(f"{player} wins!")
-        filled = 9
-        return
     if filled >= filled_max:
         build_board()
         print("Tie!")
