@@ -157,7 +157,7 @@ def main():
             except IndexError:
                 pass
     if filled >= filled_max:
-        build_board()
+        build_board(row,column)
         print("Tie!")
         return
     else:
