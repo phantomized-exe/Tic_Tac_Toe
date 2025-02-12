@@ -79,20 +79,25 @@ def main():
     global column
     build_board(row,column)
     filled_max = row*column
-    if str(player_choice()) in str(multi_board):
-        if filled_max > 9:
-            position = multi_board.index(str(format(player_input,"02d")))
-        else:
+    if filled_max < 10:
+        if str(player_choice()) in str(multi_board):
             position = multi_board.index(str(player_input))
-        if filled_max > 9:
-            multi_board[position] = " "
+            multi_board[position] = player
+            filled += 1
         else:
-            multi_board[position] = ""
-        multi_board[position] += player
-        filled += 1
-    else:
-        print("Space already filled")
-        main()
+            print()
+            print("Space already filled")
+            main()
+    elif filled_max > 9:
+        if str(format(player_choice(),"02d")) in str(multi_board):
+            position = multi_board.index(str(format(player_input,"02d")))
+            multi_board[position] = " "
+            multi_board[position] += player
+            filled += 1
+        else:
+            print()
+            print("Space already filled")
+            main()
     formatted_list = []
     formatted_row_min = 0
     formatted_row_max = row
@@ -102,7 +107,7 @@ def main():
         formatted_row_max += row
     for i in range(column):
         if filled_max < 10:
-            if formatted_list[i-1].count(player) >= 3:#== row
+            if formatted_list[i].count(player) >= 3:#== row
                 build_board(row,column)
                 print(f"{player} wins!")
                 quit()
@@ -111,17 +116,15 @@ def main():
                 #print(f"{player} wins! test 3")
                 #return
         else:
-            print(formatted_list[i].count(" " + player))
-            if formatted_list[i-1].count(" " + player) >= 3:
+            if formatted_list[i].count(" " + player) >= 3:
                 build_board(row,column)
                 print(f"{player} wins!")
-                quit()
+                return
     win_down = 0
     for i in range(row):
         for j in range(column):
             if filled_max < 10:
                 if formatted_list[j][i] == player:
-                    print("test")
                     win_down += 1
                     continue
                 else:
@@ -135,7 +138,7 @@ def main():
         if win_down >= 3:
             build_board(row,column)
             print(f"{player} wins!")
-            quit()
+            return
     if filled >= filled_max:
         build_board()
         print("Tie!")
