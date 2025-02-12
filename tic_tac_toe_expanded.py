@@ -96,7 +96,7 @@ def main():
             else:
                 print("Space already filled")
                 continue
-        elif filled_max > 9:
+        else:
             if str(format(player_choice(),"02d")) in str(multi_board):
                 position = multi_board.index(str(format(player_input,"02d")))
                 multi_board[position] = " "
