@@ -9,23 +9,31 @@ while True:
         break
 multi_board = []
 board_num = 0
+list_value = row*column
 for i in range(column):
     for j in range(row):
         board_num += 1
-        multi_board.append(str(format(board_num,"02d")))
+        if list_value < 10:
+            multi_board.append(str(board_num))#format(board_num,"02d")))
+        else:
+            multi_board.append(str(format(board_num,"02d")))
     
 def build_board(row,column):
     global multi_board
     line = "="
     line_num = 0
     list_num = 0
+    list_value = row*column
     print()
     for i in range(column):
         for j in range(row):
             print(" ",end="")
             print(multi_board[list_num],end=" ")
             list_num += 1
-            line_num += 4
+            if list_value < 10:
+                line_num += 3
+            else:
+                line_num += 4
             if j != row-1:
                 print("|",end="")
                 line_num += 1
