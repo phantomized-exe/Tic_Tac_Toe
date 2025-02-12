@@ -139,6 +139,30 @@ def main():
             build_board(row,column)
             print(f"{player} wins!")
             return
+    win_diag = 0
+    num_diag = 0
+    for i in range(row):
+        for j in range(column):
+            if filled_max < 10:
+                if formatted_list[j][num_diag] == player:
+                    print(num_diag)
+                    win_diag += 1
+                    num_diag += 1
+                    continue
+                else:
+                    break
+            else:
+                if formatted_list[j][num_diag] == " " + player:
+                    print(num_diag)
+                    win_diag += 1
+                    num_diag += 1
+                    continue
+                else:
+                    break
+        if win_diag >= 3:
+            build_board(row,column)
+            print(f"{player} wins!")
+            return
     if filled >= filled_max:
         build_board()
         print("Tie!")
