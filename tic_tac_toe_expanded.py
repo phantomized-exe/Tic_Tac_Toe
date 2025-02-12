@@ -104,7 +104,6 @@ def main():
                 filled += 1
                 break
             else:
-                print()
                 print("Space already filled")
                 continue
     formatted_list = []
