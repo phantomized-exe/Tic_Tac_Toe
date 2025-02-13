@@ -114,16 +114,10 @@ def main():
         formatted_row_min = formatted_row_max
         formatted_row_max += row
     for i in range(column):
-        if filled_max < 10:
-            if formatted_list[i].count(player) >= 3:
-                build_board(row,column)
-                print(f"{player} wins!")
-                play_again()
-        else:
-            if formatted_list[i].count(" " + player) >= 3:
-                build_board(row,column)
-                print(f"{player} wins!")
-                play_again()
+        if formatted_list[i].count(player) >= 3 or formatted_list[i].count(" " + player) >= 3:
+            build_board(row,column)
+            print(f"{player} wins!")
+            play_again()
     for i in range(column):
         for j in range(row):
             try:
