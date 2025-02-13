@@ -1,16 +1,12 @@
 def board_choice():
-    global row
-    global column
     global multi_board
-    while True:
-        try:
-            row = int(input("What row size? "))
-            column = int(input("What column size? "))
-        except ValueError:
-            print("Invalid input")
-            continue
-        else:
-            break
+    try:
+        row = int(input("What row size? "))
+        column = int(input("What column size? "))
+    except ValueError:
+        print("Invalid input")
+        board_choice()
+    board_area = {"Row": row, "Column": column}
     multi_board = []
     board_num = 0
     list_value = row*column
@@ -21,6 +17,7 @@ def board_choice():
                 multi_board.append(str(board_num))
             else:
                 multi_board.append(str(format(board_num,"02d")))
+    return board_area
     
 def build_board(row,column):
     global multi_board
@@ -53,11 +50,9 @@ def build_board(row,column):
             line_num = 0
             line_break = 0
     print()
-def player_choice():
+def player_choice(row,column):
     global player
     global player_input
-    global row
-    global column
     while True:
         try:
             player = input("X or O? ")
@@ -74,20 +69,17 @@ def player_choice():
         except ValueError:
             print("Invalid input")
             continue
-filled = 0
-board_choice()
-def main():
+def main(board_area):
     global multi_board
-    global filled
-    global filled_max
     global player
     global player_input
-    global row
-    global column
-    build_board(row,column)
+    filled = 0
+    row = board_area["Row"]
+    column = board_area["Column"]
+    build_board(board_area["Row"],board_area["Column"])
     filled_max = row*column
     while True:
-        if str(player_choice()) in str(multi_board) or str(format(player_choice(),"02d")) in str(multi_board):
+        if str(player_choice(row,column)) in str(multi_board) or str(format(player_choice(row,column),"02d")) in str(multi_board):
             if filled_max < 10:
                 position = multi_board.index(str(player_input))
                 multi_board[position] = player
@@ -143,19 +135,20 @@ def main():
         print("Tie!")
         play_again()
     else:
-        main()
+        main(board_area)
 def play_again():
     global filled
     print()
     play_again = input("Play again? (y/n) ")
     if play_again == "y":
         filled = 0
-        board_choice()
-        main()
+        board_area = board_choice()
+        main(board_area)
     else:
         play_again = "n"
         print()
         print("Made by Phann Boon and George Koniaris")
         quit()
-if __name__ == main():
-    main()
+board_area = board_choice()
+if __name__ == main(board_area):
+    main(board_area)
