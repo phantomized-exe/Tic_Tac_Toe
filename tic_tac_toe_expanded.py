@@ -87,25 +87,19 @@ def main():
     build_board(row,column)
     filled_max = row*column
     while True:
-        if filled_max < 10:
-            if str(player_choice()) in str(multi_board):
+        if str(player_choice()) in str(multi_board) or str(format(player_choice(),"02d")) in str(multi_board):
+            if filled_max < 10:
                 position = multi_board.index(str(player_input))
                 multi_board[position] = player
-                filled += 1
-                break
             else:
-                print("Space already filled")
-                continue
-        else:
-            if str(format(player_choice(),"02d")) in str(multi_board):
                 position = multi_board.index(str(format(player_input,"02d")))
                 multi_board[position] = " "
                 multi_board[position] += player
-                filled += 1
-                break
-            else:
-                print("Space already filled")
-                continue
+            filled += 1
+            break
+        else:
+            print("Space already filled")
+            continue
     formatted_list = []
     formatted_row_min = 0
     formatted_row_max = row
@@ -116,12 +110,10 @@ def main():
     for i in range(column):
         for j in range(row):
             try:
-                if formatted_list[i][j] == player or formatted_list[i][j] == " " + player:
-                    if formatted_list[i][j+1] == player or formatted_list[i][j+1] == " " + player:
-                        if formatted_list[i][j+2] == player or formatted_list[i][j+2] == " " + player:
-                            build_board(row,column)
-                            print(f"{player} wins!")
-                            play_again()
+                if formatted_list[i][j] == player and formatted_list[i][j+1] == player and formatted_list[i][j+2] == player or formatted_list[i][j] == " " + player and formatted_list[i][j+1] == " " + player and formatted_list[i][j+2] == " " + player:
+                    build_board(row,column)
+                    print(f"{player} wins!")
+                    play_again()
             except IndexError:
                 pass
     for i in range(column):
