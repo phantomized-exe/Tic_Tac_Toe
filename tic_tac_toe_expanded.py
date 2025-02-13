@@ -113,11 +113,17 @@ def main():
         formatted_list.append(multi_board[formatted_row_min:formatted_row_max])
         formatted_row_min = formatted_row_max
         formatted_row_max += row
-    for i in range(column): #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        if formatted_list[i].count(player) >= 3 or formatted_list[i].count(" " + player) >= 3:
-            build_board(row,column)
-            print(f"{player} wins!")
-            play_again()
+    for i in range(column):
+        for j in range(row):
+            try:
+                if formatted_list[i][j] == player or formatted_list[i][j] == " " + player:
+                    if formatted_list[i][j+1] == player or formatted_list[i][j+1] == " " + player:
+                        if formatted_list[i][j+2] == player or formatted_list[i][j+2] == " " + player:
+                            build_board(row,column)
+                            print(f"{player} wins!")
+                            play_again()
+            except IndexError:
+                pass
     for i in range(column):
         for j in range(row):
             try:
