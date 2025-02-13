@@ -113,7 +113,7 @@ def main():
         formatted_list.append(multi_board[formatted_row_min:formatted_row_max])
         formatted_row_min = formatted_row_max
         formatted_row_max += row
-    for i in range(column):
+    for i in range(column): #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         if formatted_list[i].count(player) >= 3 or formatted_list[i].count(" " + player) >= 3:
             build_board(row,column)
             print(f"{player} wins!")
