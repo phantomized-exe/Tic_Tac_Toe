@@ -119,29 +119,23 @@ def main():
     for i in range(column):
         for j in range(row):
             try:
-                if formatted_list[i][j] == player or formatted_list[i][j] == " " + player:
-                    if formatted_list[i+1][j] == player or formatted_list[i+1][j] == " " + player:
-                        if formatted_list[i+2][j] == player or formatted_list[i+2][j] == " " + player:
-                            build_board(row,column)
-                            print(f"{player} wins!")
-                            play_again()
+                if formatted_list[i][j] == player and formatted_list[i+1][j] == player and formatted_list[i+2][j] == player or formatted_list[i][j] == " " + player and formatted_list[i+1][j] == " " + player and formatted_list[i+2][j] == " " + player:
+                    build_board(row,column)
+                    print(f"{player} wins!")
+                    play_again()
             except IndexError:
                 pass
     for i in range(column):
         for j in range(row):
             try:
-                if formatted_list[i][j] == player or formatted_list[i][j] == " " + player:
-                    if formatted_list[i+1][j+1] == player or formatted_list[i+1][j+1] == " " + player:
-                        if formatted_list[i+2][j+2] == player or formatted_list[i+2][j+2] == " " + player:
-                            build_board(row,column)
-                            print(f"{player} wins!")
-                            play_again()
-                if formatted_list[-i-1][j] == player or formatted_list[-i-1][j] == " " + player:
-                    if formatted_list[-i-2][j+1] == player or formatted_list[-i-2][j+1] == " " + player:
-                        if formatted_list[-i-3][j+2] == player or formatted_list[-i-3][j+2] == " " + player:
-                            build_board(row,column)
-                            print(f"{player} wins!")
-                            play_again()
+                if formatted_list[i][j] == player and formatted_list[i+1][j+1] == player and formatted_list[i+2][j+2] == player or formatted_list[i][j] == " " + player and formatted_list[i+1][j+1] == " " + player and formatted_list[i+2][j+2] == " " + player:
+                    build_board(row,column)
+                    print(f"{player} wins!")
+                    play_again()
+                if formatted_list[-i-1][j] == player and formatted_list[-i-2][j+1] == player and formatted_list[-i-3][j+2] == player or formatted_list[-i-1][j] == " " + player and formatted_list[-i-2][j+1] == " " + player and formatted_list[-i-3][j+2] == " " + player:
+                    build_board(row,column)
+                    print(f"{player} wins!")
+                    play_again()
             except IndexError:
                 pass
     if filled >= filled_max:
