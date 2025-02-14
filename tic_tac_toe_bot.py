@@ -150,20 +150,15 @@ def main(board_area):
     column = board_area["Column"]
     build_board(board_area["Row"],board_area["Column"])
     filled_max = row*column
-    while True:
-        if str(player_choice(row,column)) in str(multi_board) or str(format(player_choice(row,column),"02d")) in str(multi_board):
-            if filled_max < 10:
-                position = multi_board.index(str(player_input))
-                multi_board[position] = player
-            else:
-                position = multi_board.index(str(format(player_input,"02d")))
-                multi_board[position] = " "
-                multi_board[position] += player
-            filled += 1
-            break
-        else:
-            print("Space already filled")
-            continue
+    player_choice(row,column)
+    if filled_max < 10:
+        position = multi_board.index(str(player_input))
+        multi_board[position] = player
+    else:
+        position = multi_board.index(str(format(player_input,"02d")))
+        multi_board[position] = " "
+        multi_board[position] += player
+    filled += 1
     check_win(row,column,filled,filled_max)
     robot_move(row,column,filled_max)
     check_win(row,column,filled,filled_max)
