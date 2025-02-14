@@ -68,6 +68,7 @@ def player_choice(row,column):
             print("Invalid input")
             continue
 def rand_move(row,column,filled_max):
+    print("random")
     while True:
         rand_row = random.randint(0,row)
         rand_column = random.randint(0,column)
@@ -84,66 +85,70 @@ def robot_move(row,column,formatted_list,filled_max):
     global multi_board
     global filled
     global player
-    player = "O"
     formatted_row_min = 0
     formatted_row_max = row
     for i in range(column):
         formatted_list.append(multi_board[formatted_row_min:formatted_row_max])
         formatted_row_min = formatted_row_max
         formatted_row_max += row
-    for i in range(column):
-        for j in range(row):
-            try:
-                if formatted_list[i][j] == "X" or formatted_list[i][j] == " X":
-                    if formatted_list[i][j+1] == "X" or formatted_list[i][j+1] == " X":
-                        if formatted_list[i][j+2] != "O" and formatted_list[i][j+2] != " O":
-                            if filled_max < 10:
-                                position = multi_board.index(formatted_list[i][j+2])
-                                multi_board[position] = "O"
-                                filled += 1
-                                return
-                            else:
-                                position = multi_board.index(format(formatted_list[i][j+2],"02d"))
-                                multi_board[position] = " O"
-                                filled += 1
-                                return
-                        elif formatted_list[i][j-1] != "O" and formatted_list[i][j-1] != " O":
-                            if filled_max < 10:
-                                position = multi_board.index(formatted_list[i][j-1])
-                                multi_board[position] = "O"
-                                filled += 1
-                                return
-                            else:
-                                position = multi_board.index(format(formatted_list[i][j-1],"02d"))
-                                multi_board[position] = " O"
-                                filled += 1
-                                return
-                    elif formatted_list[i][j+2] == "X" or formatted_list[i][j+2] == " X":
-                        if formatted_list[i][j+1] != "O" and formatted_list[i][j+1] != " O":
-                            if filled_max < 10:
-                                position = multi_board.index(formatted_list[i][j+1])
-                                multi_board[position] = "O"
-                                filled += 1
-                                return
-                            else:
-                                position = multi_board.index(format(formatted_list[i][j+1],"02d"))
-                                multi_board[position] = " O"
-                                filled += 1
-                                return
-            except IndexError:
+    for h in range(2):
+        if h == 0:
+            player = "O"
+        else:
+            player = "X"
+        for i in range(column):
+            for j in range(row):
                 try:
-                    if formatted_list[i][j] == "X" or formatted_list[i][j] == " X":
-                        if formatted_list[i][j+1] == "X" or formatted_list[i][j+1] == " X":
-                            if formatted_list[i][j-1] != "O" and formatted_list[i][j-1] != " O":
+                    if formatted_list[i][j] == player or formatted_list[i][j] == " " + player:
+                        if formatted_list[i][j+1] == player or formatted_list[i][j+1] == " " + player:
+                            if formatted_list[i][j+2] != "O" and formatted_list[i][j+2] != " O" and formatted_list[i][j+2] != "X" and formatted_list[i][j+2] != " X":
+                                if filled_max < 10:
+                                    position = multi_board.index(formatted_list[i][j+2])
+                                    multi_board[position] = "O"
+                                    filled += 1
+                                    return
+                                else:
+                                    position = multi_board.index(format(formatted_list[i][j+2],"02d"))
+                                    multi_board[position] = " O"
+                                    filled += 1
+                                    return
+                            elif formatted_list[i][j-1] != "O" and formatted_list[i][j-1] != " O" and formatted_list[i][j+2] != "X" and formatted_list[i][j+2] != " X":
                                 if filled_max < 10:
                                     position = multi_board.index(formatted_list[i][j-1])
                                     multi_board[position] = "O"
                                     filled += 1
                                     return
+                                else:
+                                    position = multi_board.index(format(formatted_list[i][j-1],"02d"))
+                                    multi_board[position] = " O"
+                                    filled += 1
+                                    return
+                        elif formatted_list[i][j+2] == player or formatted_list[i][j+2] == " " + player:
+                            if formatted_list[i][j+1] != "O" and formatted_list[i][j+1] != " O" and formatted_list[i][j+2] != "X" and formatted_list[i][j+2] != " X":
+                                if filled_max < 10:
+                                    position = multi_board.index(formatted_list[i][j+1])
+                                    multi_board[position] = "O"
+                                    filled += 1
+                                    return
+                                else:
+                                    position = multi_board.index(format(formatted_list[i][j+1],"02d"))
+                                    multi_board[position] = " O"
+                                    filled += 1
+                                    return
                 except IndexError:
-                    rand_move(row,column,filled_max)
-                    filled += 1
-                    return
+                    try:
+                        if formatted_list[i][j] == player or formatted_list[i][j] == " " + player:
+                            if formatted_list[i][j+1] == "X" or formatted_list[i][j+1] == " X":
+                                if formatted_list[i][j-1] != "O" and formatted_list[i][j-1] != " O" and formatted_list[i][j+2] != "X" and formatted_list[i][j+2] != " X":
+                                    if filled_max < 10:
+                                        position = multi_board.index(formatted_list[i][j-1])
+                                        multi_board[position] = "O"
+                                        filled += 1
+                                        return
+                    except IndexError:
+                        rand_move(row,column,filled_max)
+                        filled += 1
+                        return
     rand_move(row,column,filled_max)
     filled += 1
     return
