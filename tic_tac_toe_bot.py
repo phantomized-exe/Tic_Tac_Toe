@@ -51,6 +51,7 @@ def build_board(row,column):
 def player_choice(row,column):
     global player
     global player_input
+    global multi_board
     while True:
         try:
             player = "X"
@@ -58,12 +59,16 @@ def player_choice(row,column):
             if player_input < 0 or player_input > row*column:
                 print("Invalid input")
                 continue
+            elif multi_board[player_input-1] == "X" or multi_board[player_input-1] == " X" or multi_board[player_input-1] == "O" or multi_board[player_input-1] == " O":
+                print("Space already filled")
+                continue
             else:
                 return player_input
         except ValueError:
             print("Invalid input")
             continue
 def rand_move(row,column,filled_max):
+    print("random")
     while True:
         rand_row = random.randint(0,row)
         rand_column = random.randint(0,column)
@@ -81,26 +86,51 @@ def robot_move(row,column,filled_max):
     global filled
     global player
     player = "O"
-    for i in range(column):
-        for j in range(row):
-            try:
-                if multi_board[i+j] == "X" or multi_board[i+j] == " X":
-                    if multi_board[i+j+1] == "X" or multi_board[i+j+1] == " X":
-                        if multi_board[i+j+2] != "X" and multi_board[i+j+2] != " X" and multi_board[i+j+2] != "O" and multi_board[i+j+2] != " O":
-                            if filled_max < 10:
-                                multi_board[i+j+2] = "O"
-                                filled += 1
-                                return
-                            else:
-                                multi_board[i+j+2] = " O"
-                                filled += 1
-                                return
-                        else:
-                            rand_move(row,column,filled_max)
+    for i in range(column+row):
+        try:
+            if multi_board[i] == "X" or multi_board[i] == " X":
+                print("test")
+                if multi_board[i+1] == "X" or multi_board[i+1] == " X":
+                    if multi_board[i+2] != "O" and multi_board[i+2] != " O":
+                        if filled_max < 10:
+                            multi_board[i+2] = "O"
                             filled += 1
-                            return 
+                            return
+                        else:
+                            multi_board[i+2] = " O"
+                            filled += 1
+                            return
                     else:
                         rand_move(row,column,filled_max)
+                        filled += 1
+                        return
+                elif multi_board[i+2] == "X" or multi_board[i+2] == " X":
+                    if multi_board[i+1] != "O" and multi_board[i+1] != " O":
+                        if filled_max < 10:
+                            multi_board[i+1] = "O"
+                            filled += 1
+                            return
+                        else:
+                            multi_board[i+1] = " O"
+                            filled += 1
+                            return 
+                else:
+                    rand_move(row,column,filled_max)
+                    filled += 1
+                    return
+            else:
+                rand_move(row,column,filled_max)
+                filled += 1
+                return
+        except IndexError:
+            try:
+                if multi_board[i-1] != "O" and multi_board[i-1] != " O":
+                    if filled_max < 10:
+                        multi_board[i-1] = "O"
+                        filled += 1
+                        return
+                    else:
+                        multi_board[i-1] = " O"
                         filled += 1
                         return
                 else:
@@ -108,24 +138,9 @@ def robot_move(row,column,filled_max):
                     filled += 1
                     return
             except IndexError:
-                try:
-                    if multi_board[i+j-1] != "X" and multi_board[i+j-1] != " X" and multi_board[i+j-1] != "O" and multi_board[i+j-1] != " O":
-                        if filled_max < 10:
-                            multi_board[i+j-1] = "O"
-                            filled += 1
-                            return
-                        else:
-                            multi_board[i+j-1] = " O"
-                            filled += 1
-                            return
-                    else:
-                        rand_move(row,column,filled_max)
-                        filled += 1
-                        return
-                except IndexError:
-                    rand_move(row,column,filled_max)
-                    filled += 1
-                    return
+                rand_move(row,column,filled_max)
+                filled += 1
+                return
 def main(board_area):
     global multi_board
     global player
