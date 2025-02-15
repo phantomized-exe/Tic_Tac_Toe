@@ -56,13 +56,20 @@ def build_board(row,column):
             line_num = 0
             line_break = 0
     print()
-def player_choice(row,column):
+def player_choice(row,column,bot_choice):
     global player
     global player_input
     global multi_board
     while True:
         try:
-            player = "X"
+            if bot_choice == "y":
+                player = "X"
+            else:
+                player = input("X or O? ")
+                player = player.upper()
+                if player != "X" and player != "O":
+                    print("Invalid input")
+                    continue    
             player_input = int(input("What number spot? "))
             if player_input < 0 or player_input > row*column:
                 print("Invalid input")
@@ -269,7 +276,7 @@ def main(board_area,bot_choice):
     column = board_area["Column"]
     build_board(board_area["Row"],board_area["Column"])
     filled_max = row*column
-    player_choice(row,column)
+    player_choice(row,column,bot_choice)
     if filled_max < 10:
         position = multi_board.index(str(player_input))
         multi_board[position] = player
