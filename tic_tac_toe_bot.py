@@ -1,9 +1,17 @@
 import random
 filled = 0
-def board_choice():
+def board_choice(bot_choice):
     global multi_board
-    row = 3
-    column = 3
+    if bot_choice == "n":
+        try:
+            row = int(input("What row size? "))
+            column = int(input("What column size? "))
+        except ValueError:
+            print("Invalid input")
+            board_choice()
+    else:
+        row = 3
+        column = 3
     board_area = {"Row": row, "Column": column}
     multi_board = []
     board_num = 0
@@ -68,6 +76,7 @@ def player_choice(row,column):
             print("Invalid input")
             continue
 def rand_move(row,column,filled_max):
+    print("Random")
     while True:
         rand_row = random.randint(0,row)
         rand_column = random.randint(0,column)
@@ -107,11 +116,12 @@ def robot_move(row,column,formatted_list,filled_max):
                                 filled += 1
                                 return
                             else:
-                                formatted_list[i][j] = " O"
+                                total_count = multi_board.index(str(format(int(formatted_list[i][j]),"02d")))
                                 multi_board[total_count] = " O"
+                                formatted_list[i][j] = " O"
                                 filled += 1
                                 return
-            except ValueError:
+            except IndexError:
                 pass
         for i in range(column):
             for j in range(row):
@@ -119,21 +129,35 @@ def robot_move(row,column,formatted_list,filled_max):
                     if formatted_list[i][j] == player or formatted_list[i][j] == " " + player:
                         if formatted_list[i+1][j] == player or formatted_list[i+1][j] == " " + player:
                             if formatted_list[i+2][j] != "X" and formatted_list[i+2][j] != " X" and formatted_list[i+2][j] != "O" and formatted_list[i+2][j] != " O":
-                                total_count = multi_board.index(str(formatted_list[i-1][j]))
-                                multi_board[total_count] = "O"
-                                formatted_list[i-1][j] = "O"
-                                filled += 1
-                                return
-                except ValueError:
+                                if filled_max < 10:
+                                    total_count = multi_board.index(str(formatted_list[i+2][j]))
+                                    multi_board[total_count] = "O"
+                                    formatted_list[i+2][j] = "O"
+                                    filled += 1
+                                    return
+                                else:
+                                    total_count = multi_board.index(str(format(int(formatted_list[i+2][j]),"02d")))
+                                    multi_board[total_count] = " O"
+                                    formatted_list[i+2][j] = " O"
+                                    filled += 1
+                                    return
+                except IndexError:
                     try:
                         if formatted_list[i+1][j] == player or formatted_list[i+1][j] == " " + player:
                             if formatted_list[i-1][j] != "X" and formatted_list[i-1][j] != " X" and formatted_list[i-1][j] != "O" and formatted_list[i-1][j] != " O":
-                                total_count = multi_board.index(str(formatted_list[i][j]))
-                                multi_board[total_count] = "O"
-                                formatted_list[i][j] = "O"
-                                filled += 1
-                                return
-                    except ValueError:
+                                if filled_max < 10:
+                                    total_count = multi_board.index(str(formatted_list[i-1][j]))
+                                    multi_board[total_count] = "O"
+                                    formatted_list[i-1][j] = "O"
+                                    filled += 1
+                                    return
+                                else:
+                                    total_count = multi_board.index(str(format(int(formatted_list[i-1][j]),"02d")))
+                                    multi_board[total_count] = " O"
+                                    formatted_list[i-1][j] = " O"
+                                    filled += 1
+                                    return
+                    except IndexError:
                         pass
         for i in range(column):
             for j in range(row):
@@ -141,60 +165,102 @@ def robot_move(row,column,formatted_list,filled_max):
                     if formatted_list[i][j] == player or formatted_list[i][j] == " " + player:
                         if formatted_list[i+1][j+1] == player or formatted_list[i+1][j+1] == " " + player:
                             if formatted_list[i+2][j+2] != "X" and formatted_list[i+2][j+2] != " X" and formatted_list[i+2][j+2] != "O" and formatted_list[i+2][j+2] != " O":
-                                total_count = multi_board.index(str(formatted_list[i+2][j+2]))
-                                multi_board[total_count] = "O"
-                                formatted_list[i+2][j+2] = "O"
-                                filled += 1
-                                return
+                                if filled_max < 10:
+                                    total_count = multi_board.index(str(formatted_list[i+2][j+2]))
+                                    multi_board[total_count] = "O"
+                                    formatted_list[i+2][j+2] = "O"
+                                    filled += 1
+                                    return
+                                else:
+                                    total_count = multi_board.index(str(format(int(formatted_list[i+2][j+2]),"02d")))
+                                    multi_board[total_count] = " O"
+                                    formatted_list[i+2][j+2] = " O"
+                                    filled += 1
+                                    return
                         elif formatted_list[i+2][j+2] == player or formatted_list[i+2][j+2] == " " + player:
                             if formatted_list[i+1][j+1] != "X" and formatted_list[i+1][j+1] != " X" and formatted_list[i+1][j+1] != "O" and formatted_list[i+1][j+1] != " O":
-                                total_count = multi_board.index(str(formatted_list[i+1][j+1]))
-                                multi_board[total_count] = "O"
-                                formatted_list[i+1][j+1] = "O"
-                                filled += 1
-                                return
+                                if filled_max < 10:
+                                    total_count = multi_board.index(str(formatted_list[i+1][j+1]))
+                                    multi_board[total_count] = "O"
+                                    formatted_list[i+1][j+1] = "O"
+                                    filled += 1
+                                    return
+                                else:
+                                    total_count = multi_board.index(str(format(int(formatted_list[i+1][j+1]),"02d")))
+                                    multi_board[total_count] = " O"
+                                    formatted_list[i+1][j+1] = " O"
+                                    filled += 1
+                                    return
                 except IndexError:
                     try:
                         if formatted_list[i+1][j+1] == player or formatted_list[i+1][j+1] == " " + player:
                             if formatted_list[i-1][j-1] != "X" and formatted_list[i-1][j-1] != " X" and formatted_list[i-1][j] != "O" and formatted_list[i-1][j] != " O":
-                                total_count = multi_board.index(str(formatted_list[i-1][j-1]))
-                                multi_board[total_count] = "O"
-                                formatted_list[i-1][j-1] = "O"
-                                filled += 1
-                                return
+                                if filled_max < 10:
+                                    total_count = multi_board.index(str(formatted_list[i-1][j-1]))
+                                    multi_board[total_count] = "O"
+                                    formatted_list[i-1][j-1] = "O"
+                                    filled += 1
+                                    return
+                                else:
+                                    total_count = multi_board.index(str(format(int(formatted_list[i-1][j-1]),"02d")))
+                                    multi_board[total_count] = " O"
+                                    formatted_list[i-1][j-1] = " O"
+                                    filled += 1
+                                    return
                     except IndexError:
                         pass
                 try:
                     if formatted_list[-i][j] == player or formatted_list[-i][j] == " " + player:
                         if formatted_list[-i-1][j+1] == player or formatted_list[-i-1][j+1] == " " + player:
                             if formatted_list[-i-2][j+2] != "X" and formatted_list[-i-2][j+2] != " X" and formatted_list[-i-2][j+2] != "O" and formatted_list[-i-2][j+2] != " O":
-                                total_count = multi_board.index(str(formatted_list[-i-2][j+2]))
-                                multi_board[total_count] = "O"
-                                formatted_list[-i-2][j+2] = "O"
-                                filled += 1
-                                return
+                                if filled_max < 10:
+                                    total_count = multi_board.index(str(formatted_list[-i-2][j+2]))
+                                    multi_board[total_count] = "O"
+                                    formatted_list[-i-2][j+2] = "O"
+                                    filled += 1
+                                    return
+                                else:
+                                    total_count = multi_board.index(str(format(int(formatted_list[-i-2][j+2]),"02d")))
+                                    multi_board[total_count] = " O"
+                                    formatted_list[-i-2][j+2] = " O"
+                                    filled += 1
+                                    return
                         elif formatted_list[-i-2][j+2] == player or formatted_list[-i-2][j+2] == " " + player:
                             if formatted_list[-i-1][j+1] != "X" and formatted_list[-i-1][j+1] != " X" and formatted_list[-i-1][j+1] != "O" and formatted_list[-i-1][j+1] != " O":
-                                total_count = multi_board.index(str(formatted_list[-i-1][j+1]))
-                                multi_board[total_count] = "O"
-                                formatted_list[-i-1][j+1] = "O"
-                                filled += 1
-                                return
+                                if filled_max < 10:
+                                    total_count = multi_board.index(str(formatted_list[-i-1][j+1]))
+                                    multi_board[total_count] = "O"
+                                    formatted_list[-i-1][j+1] = "O"
+                                    filled += 1
+                                    return
+                                else:
+                                    total_count = multi_board.index(str(format(int(formatted_list[-i-1][j+1]),"02d")))
+                                    multi_board[total_count] = " O"
+                                    formatted_list[-i-1][j+1] = " O"
+                                    filled += 1
+                                    return
                 except IndexError:
                     try:
                         if formatted_list[-i-1][j+1] == player or formatted_list[-i-1][j+1] == " " + player:
                             if formatted_list[-i+1][j-1] != "X" and formatted_list[-i+1][j-1] != " X" and formatted_list[-i+1][j] != "O" and formatted_list[-i+1][j] != " O":
-                                total_count = multi_board.index(str(formatted_list[-i+1][j-1]))
-                                multi_board[total_count] = "O"
-                                formatted_list[-i+1][j-1] = "O"
-                                filled += 1
-                                return
+                                if filled_max < 10:
+                                    total_count = multi_board.index(str(formatted_list[-i+1][j-1]))
+                                    multi_board[total_count] = "O"
+                                    formatted_list[-i+1][j-1] = "O"
+                                    filled += 1
+                                    return
+                                else:
+                                    total_count = multi_board.index(str(format(int(formatted_list[-i+1][j-1]),"02d")))
+                                    multi_board[total_count] = " O"
+                                    formatted_list[-i+1][j-1] = " O"
+                                    filled += 1
+                                    return
                     except IndexError:
                         pass
     rand_move(row,column,filled_max)
     filled += 1
     return
-def main(board_area):
+def main(board_area,bot_choice):
     global multi_board
     global player
     global player_input
@@ -212,10 +278,11 @@ def main(board_area):
         multi_board[position] = " "
         multi_board[position] += player
     filled += 1
+    if bot_choice == "y":
+        check_win(row,column,filled,filled_max)
+        robot_move(row,column,formatted_list,filled_max)
     check_win(row,column,filled,filled_max)
-    robot_move(row,column,formatted_list,filled_max)
-    check_win(row,column,filled,filled_max)
-    main(board_area)
+    main(board_area,bot_choice)
 def check_win(row,column,filled,filled_max):
     global player
     global formatted_list
@@ -269,13 +336,35 @@ def play_again():
     play_again = input("Play again? (y/n) ")
     if play_again == "y":
         filled = 0
-        board_area = board_choice()
-        main(board_area)
+        while True:
+            try:
+                bot_choice = input("Use a bot? (y/n) ")
+                if bot_choice != "y" and bot_choice != "n":
+                    print("Invalid input")
+                    continue
+                else:
+                    break
+            except ValueError:
+                print("Invalid input")
+                continue
+        board_area = board_choice(bot_choice)
+        main(board_area,bot_choice)
     else:
         play_again = "n"
         print()
         print("Made by Phann Boon and George Koniaris")
         quit()
-board_area = board_choice()
-if __name__ == main(board_area):
-    main(board_area)
+while True:
+    try:
+        bot_choice = input("Use a bot? (y/n) ")
+        if bot_choice != "y" and bot_choice != "n":
+            print("Invalid input")
+            continue
+        else:
+            break
+    except ValueError:
+        print("Invalid input")
+        continue
+board_area = board_choice(bot_choice)
+if __name__ == main(board_area,bot_choice):
+    main(board_area,bot_choice)
