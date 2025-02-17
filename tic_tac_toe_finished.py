@@ -1,6 +1,7 @@
 import random
 filled = 0
 def board_choice(bot_choice):
+    # determines the size of the board for 2 players, if 1 player selected, sets board to 3x3
     global multi_board
     if bot_choice == "n":
         try:
@@ -26,6 +27,7 @@ def board_choice(bot_choice):
     return board_area
     
 def build_board(row,column):
+    # prints the updated board
     global multi_board
     line = "="
     line_num = 0
@@ -35,6 +37,7 @@ def build_board(row,column):
     print()
     for i in range(column):
         for j in range(row):
+            # prints the numbers evenly spaced out
             print(" ",end="")
             print(multi_board[list_num],end=" ")
             list_num += 1
@@ -43,11 +46,13 @@ def build_board(row,column):
             else:
                 line_num += 4
             if j != row-1:
+                # prints the vertical lines dividing the numbers
                 print("|",end="")
                 line_break += 1
         print()
         if i != column-1:
             for k in range(row):
+                # prints the horizontal lines dividing the numbers
                 for l in range(int(line_num/row)):
                     print(line,end="")
                 if k != row-1:
@@ -57,6 +62,7 @@ def build_board(row,column):
             line_break = 0
     print()
 def player_choice(row,column,bot_choice):
+    # determines X or O and where they go
     global player
     global player_input
     global multi_board
@@ -83,6 +89,7 @@ def player_choice(row,column,bot_choice):
             print("Invalid input")
             continue
 def rand_move(row,column,filled_max):
+    # if the bot has no logical move it moves randomly
     print("Random")
     while True:
         rand_row = random.randint(0,row)
@@ -97,6 +104,7 @@ def rand_move(row,column,filled_max):
         else:
             continue
 def robot_move(row,column,formatted_list,filled_max):
+    # the robot logic
     global multi_board
     global filled
     global player
@@ -113,8 +121,10 @@ def robot_move(row,column,formatted_list,filled_max):
             player = "X"
         for i in range(column):
             try:
+                # checks if a horizontal line has 2 Xs
                 if formatted_list[i].count("X") >= 2 or formatted_list[i].count(" X") >= 2 or formatted_list[i].count("O") >= 2 or formatted_list[i].count(" O") >= 2:
                     for j in range(row):
+                        # finds the blank space and fills it with O
                         if formatted_list[i][j] != "X" and formatted_list[i][j] != " X" and formatted_list[i][j] != "O" and formatted_list[i][j] != " O":
                             if filled_max < 10:
                                 total_count = multi_board.index(str(formatted_list[i][j]))
@@ -133,9 +143,10 @@ def robot_move(row,column,formatted_list,filled_max):
         for i in range(column):
             for j in range(row):
                 try:
+                    # if player is about to win horizontally, bot blocks them
                     if formatted_list[i][j] == player or formatted_list[i][j] == " " + player:
                         if formatted_list[i+1][j] == player or formatted_list[i+1][j] == " " + player:
-                            if formatted_list[i+2][j] != "X" and formatted_list[i+2][j] != " X" and formatted_list[i+2][j] != "O" and formatted_list[i+2][j] != " O":
+                            if formatted_list[i+2][j] !="X" and formatted_list[i+2][j] != " X" and formatted_list[i+2][j] != "O" and formatted_list[i+2][j] != " O":
                                 if filled_max < 10:
                                     total_count = multi_board.index(str(formatted_list[i+2][j]))
                                     multi_board[total_count] = "O"
@@ -150,6 +161,7 @@ def robot_move(row,column,formatted_list,filled_max):
                                     return
                 except IndexError:
                     try:
+                        # if player 2 in a row too far down, bot will block them higher up
                         if formatted_list[i+1][j] == player or formatted_list[i+1][j] == " " + player:
                             if formatted_list[i-1][j] != "X" and formatted_list[i-1][j] != " X" and formatted_list[i-1][j] != "O" and formatted_list[i-1][j] != " O":
                                 if filled_max < 10:
@@ -168,6 +180,7 @@ def robot_move(row,column,formatted_list,filled_max):
                         pass
         for i in range(column):
             for j in range(row):
+                # checks if the player is about to get diagonal 3 in a row
                 try:
                     if formatted_list[i][j] == player or formatted_list[i][j] == " " + player:
                         if formatted_list[i+1][j+1] == player or formatted_list[i+1][j+1] == " " + player:
@@ -200,6 +213,7 @@ def robot_move(row,column,formatted_list,filled_max):
                                     return
                 except IndexError:
                     try:
+                        # if player diagonal too far down, bot blocks higher up
                         if formatted_list[i+1][j+1] == player or formatted_list[i+1][j+1] == " " + player:
                             if formatted_list[i-1][j-1] != "X" and formatted_list[i-1][j-1] != " X" and formatted_list[i-1][j] != "O" and formatted_list[i-1][j] != " O":
                                 if filled_max < 10:
@@ -217,6 +231,7 @@ def robot_move(row,column,formatted_list,filled_max):
                     except IndexError:
                         pass
                 try:
+                    # checks for backwards diagonals
                     if formatted_list[-i][j] == player or formatted_list[-i][j] == " " + player:
                         if formatted_list[-i-1][j+1] == player or formatted_list[-i-1][j+1] == " " + player:
                             if formatted_list[-i-2][j+2] != "X" and formatted_list[-i-2][j+2] != " X" and formatted_list[-i-2][j+2] != "O" and formatted_list[-i-2][j+2] != " O":
@@ -268,6 +283,7 @@ def robot_move(row,column,formatted_list,filled_max):
     filled += 1
     return
 def main(board_area,bot_choice):
+    # calls the other functions depending on player inputs
     global multi_board
     global player
     global player_input
@@ -285,12 +301,14 @@ def main(board_area,bot_choice):
         multi_board[position] = " "
         multi_board[position] += player
     filled += 1
+    # checks if playing 2 player or with bot
     if bot_choice == "y":
         check_win(row,column,filled,filled_max)
         robot_move(row,column,formatted_list,filled_max)
     check_win(row,column,filled,filled_max)
     main(board_area,bot_choice)
 def check_win(row,column,filled,filled_max):
+    # determines win, tie, or continue game
     global player
     global formatted_list
     formatted_list = []
@@ -303,6 +321,7 @@ def check_win(row,column,filled,filled_max):
     for i in range(column):
         for j in range(row):
             try:
+                # checks for horizontal win
                 if formatted_list[i][j] == player and formatted_list[i][j+1] == player and formatted_list[i][j+2] == player or formatted_list[i][j] == " " + player and formatted_list[i][j+1] == " " + player and formatted_list[i][j+2] == " " + player:
                     build_board(row,column)
                     print(f"{player} wins!")
@@ -312,6 +331,7 @@ def check_win(row,column,filled,filled_max):
     for i in range(column):
         for j in range(row):
             try:
+                # checks for vertical win
                 if formatted_list[i][j] == player and formatted_list[i+1][j] == player and formatted_list[i+2][j] == player or formatted_list[i][j] == " " + player and formatted_list[i+1][j] == " " + player and formatted_list[i+2][j] == " " + player:
                     build_board(row,column)
                     print(f"{player} wins!")
@@ -321,6 +341,7 @@ def check_win(row,column,filled,filled_max):
     for i in range(column):
         for j in range(row):
             try:
+                # checks for diagonal win
                 if formatted_list[i][j] == player and formatted_list[i+1][j+1] == player and formatted_list[i+2][j+2] == player or formatted_list[i][j] == " " + player and formatted_list[i+1][j+1] == " " + player and formatted_list[i+2][j+2] == " " + player:
                     build_board(row,column)
                     print(f"{player} wins!")
@@ -331,6 +352,7 @@ def check_win(row,column,filled,filled_max):
                     play_again()
             except IndexError:
                 pass
+    # checks if all the squares are filled
     if filled >= filled_max:
         build_board(row,column)
         print("Tie!")
@@ -338,6 +360,7 @@ def check_win(row,column,filled,filled_max):
     else:
         return
 def play_again():
+    # determines if main should restart
     global filled
     print()
     play_again = input("Play again? (y/n) ")
@@ -362,6 +385,7 @@ def play_again():
         print("Made by Phann Boon and George Koniaris")
         quit()
 while True:
+    # decides if the game is played with 2 players or bot
     try:
         bot_choice = input("Use a bot? (y/n) ")
         if bot_choice != "y" and bot_choice != "n":
