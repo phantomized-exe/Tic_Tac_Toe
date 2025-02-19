@@ -115,6 +115,7 @@ def robot_move(row,column,formatted_list,filled_max):
         formatted_row_min = formatted_row_max
         formatted_row_max += row
     for h in range(2):
+        # checks if either player is about to win
         if h == 0:
             player = "O"
         else:
